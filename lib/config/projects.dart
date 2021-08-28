@@ -41,5 +41,5 @@ final List<Project> projects = [
       name: 'Azubal.me',
       image: Assets.flutter,
       description:'It is the repository for this website portfolio',
-      link:''),
+      link:'https://github.com/TheRealAzubal/azubal.me'),
 ];
