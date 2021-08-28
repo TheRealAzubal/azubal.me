@@ -24,7 +24,7 @@ class AboutTab extends StatelessWidget {
               ),
               Text(
                 'Valentin Famery',
-                textScaleFactor: 4,
+                textScaleFactor: 3,
               ),
               SizedBox(
                 height: 20,
