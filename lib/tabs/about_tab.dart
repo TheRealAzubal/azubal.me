@@ -20,11 +20,11 @@ class AboutTab extends StatelessWidget {
                 foregroundImage: Image.asset(Assets.avatar).image,
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               Text(
                 'Valentin Famery',
-                textScaleFactor: 3,
+                textScaleFactor: 4,
               ),
               SizedBox(
                 height: 20,
