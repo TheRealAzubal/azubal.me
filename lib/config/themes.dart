@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+
 darkTheme(context) {
   return ThemeData(
-    primarySwatch: Colors.blue,
     primaryColor: Colors.black,
-    accentColor: Colors.blue,
     disabledColor: Colors.grey,
     cardColor: Color(0xff1f2124),
     canvasColor: Colors.black,
@@ -15,13 +14,14 @@ darkTheme(context) {
     appBarTheme: AppBarTheme(
       elevation: 0.0,
     ),
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+        .copyWith(secondary: Colors.blue),
   );
 }
+
 lightTheme(context) {
   return ThemeData(
-    primarySwatch: Colors.blue,
     primaryColor: Colors.white,
-    accentColor: Colors.blue,
     disabledColor: Colors.grey,
     cardColor: Colors.white,
     canvasColor: Colors.white,
@@ -33,5 +33,7 @@ lightTheme(context) {
     appBarTheme: AppBarTheme(
       elevation: 0.0,
     ),
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+        .copyWith(secondary: Colors.blue),
   );
 }

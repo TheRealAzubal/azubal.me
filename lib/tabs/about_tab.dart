@@ -4,8 +4,19 @@ import 'package:flutter/material.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
+class AboutTab extends StatefulWidget {
+   @override
+  AboutTabState createState() => AboutTabState();
+}
+class AboutTabState extends State<AboutTab> {
 
-class AboutTab extends StatelessWidget {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

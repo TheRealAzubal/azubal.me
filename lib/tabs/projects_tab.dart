@@ -1,25 +1,79 @@
-import 'package:azubal/config/projects.dart';
-import 'package:azubal/widgets/project_widget.dart';
-import 'package:azubal/widgets/responsive_widget.dart';
+import 'package:azubal/models/project_model.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class ProjectsTab extends StatelessWidget {
+class ProjectsTab extends StatefulWidget {
+  @override
+  _ProjectTabeState createState() => _ProjectTabeState();
+}
+
+class _ProjectTabeState extends State<ProjectsTab> {
+  Future<List<Project>> futureProjects;
+
+  Future<List<Project>> fetchGithubRepository() async {
+    final response = await http
+        .get(Uri.parse('https://api.github.com/users/TheRealAzubal/repos'));
+    if (response.statusCode == 200) {
+      return (json.decode(response.body) as List)
+          .map((e) => Project.fromJson(e))
+          .toList();
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load project');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    futureProjects = fetchGithubRepository();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
-      largeScreen: GridView.count(
-          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 32.0),
-          crossAxisCount: 3,
-          childAspectRatio: MediaQuery.of(context).size.width /
-              (MediaQuery.of(context).size.height / 1.3),
-          children: List.generate(
-              projects.length, (index) => ProjectWidget(projects[index], 0)),
+    return Scaffold(
+      body: FutureBuilder<List<Project>>(
+  future: futureProjects,
+  builder: (context, snapshot) {
+    if (snapshot.hasData) {
+      return ListView.separated(
+  padding: const EdgeInsets.all(8),
+  itemCount: snapshot.data.length,
+  itemBuilder: (BuildContext context, int index) {
+
+//snapshot.data[index].name
+
+    return Container(
+      height: 50,
+      child: Card(
+        child: InkWell(
+          splashColor: Colors.blue.withAlpha(30),
+          onTap: () {
+            debugPrint('Card tapped.');
+          },
+          child: SizedBox(
+            width: 300,
+            height: 100,
+            child: Text(snapshot.data[index].name),
+          ),
         ),
-      smallScreen: ListView.builder(
-          itemCount: projects.length,
-          itemBuilder: (context, index) => ProjectWidget(
-              projects[index], (index == projects.length - 1 ? 16.0 : 0))),
+      ),
+    );
+    
+  },
+  separatorBuilder: (BuildContext context, int index) => const Divider(),
+); ;
+    } else if (snapshot.hasError) {
+      return Text('${snapshot.error}');
+    }
+
+    // By default, show a loading spinner.
+    return const CircularProgressIndicator();
+  },
+)
+  
     );
   }
 }
