@@ -5,7 +5,8 @@ class Project {
   String avatar_url;
   String name;
   String description;
-  String url;
+  // ignore: non_constant_identifier_names
+  String html_url;
 
   // ignore: non_constant_identifier_names
   Project(
@@ -13,14 +14,15 @@ class Project {
       {@required this.avatar_url,
       @required this.name,
       @required this.description,
-      this.url});
+      // ignore: non_constant_identifier_names
+      this.html_url});
 
   factory Project.fromJson(Map<String, dynamic> json) {
     return Project(
       avatar_url: json['avatar_url'],
       name: json['name'],
       description: json['description'],
-      url: json['url'],
+      html_url: json['html_url'],
     );
   }
 }
